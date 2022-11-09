@@ -1,6 +1,7 @@
 package com.stock.panic;
 
 import org.springframework.boot.SpringApplication;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,11 +26,11 @@ public class PanicApplication {
 
 
 	@PostMapping("/login")
-	public String create(@RequestBody String user) {
+	public String create(@RequestBody String user, HttpServletRequest request) {
 
 		LoginApplication login = new LoginApplication();
 
-		if(login.validaLogin(user)){
+		if(login.validaLogin(user, request)){
 
 			return "okok";
 
