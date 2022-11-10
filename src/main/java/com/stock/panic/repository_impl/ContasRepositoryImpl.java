@@ -26,6 +26,7 @@ public class ContasRepositoryImpl implements ContasRepository {
 
 		Query query = new Query();
 		query.addCriteria(Criteria.where("email").is(email));
+		query.addCriteria(Criteria.where("senha").is(password));
 
 		return mongoTemplate.findOne(query, Contas.class);
 	}
