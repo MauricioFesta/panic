@@ -41,9 +41,6 @@ public class LoginController {
 		}else{
 			return "erro";
 		}
-
-		//return loginRepository.findAll();
-
 		
 	}
 
