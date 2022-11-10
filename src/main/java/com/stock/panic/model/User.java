@@ -6,13 +6,24 @@ public class User {
    public String email;
    public String password;
 
-    public void setFromLogin(String user){
+   public User(String body) {
 
-        JSONObject body = new JSONObject(user);
+        JSONObject user = new JSONObject(body);
 
-        this.email = body.getString("email");
-        this.password = body.getString("senha");
+       this.email = user.getString("email");
+       this.password = user.getString("senha");
+   }
 
+    public String getEmail(){
+
+        return this.email;
+
+    }
+
+    public String getPassword(){
+
+        return this.password;
+        
     }
 
 }

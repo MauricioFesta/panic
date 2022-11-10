@@ -18,11 +18,10 @@ public class LoginService  {
 
   public boolean validaLogin(String body, HttpServletRequest request){
 
-        User newUser = new User();
-        newUser.setFromLogin(body);
+        User newUser = new User(body);
+        //newUser.setFromLogin(body);
 
-  
-        if(newUser.email.equals("festamauricio42@gmail.com") && newUser.password.equals("123")){
+        if(newUser.getEmail().equals("festamauricio42@gmail.com") && newUser.getPassword().equals("123")){
   
             HttpSession session=request.getSession();  
              
