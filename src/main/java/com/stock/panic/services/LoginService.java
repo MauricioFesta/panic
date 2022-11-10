@@ -1,8 +1,9 @@
 package com.stock.panic.services;
+
 import com.stock.panic.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import com.stock.panic.repository.LoginRepository;
+import com.stock.panic.repository.ContasRepository;
 import com.stock.panic.model.Contas;
 
 
@@ -10,18 +11,19 @@ public class LoginService  {
 
   String body = null;
 
-  private final LoginRepository loginRepository;
+  private final ContasRepository contaRepository;
 
-	public LoginService(LoginRepository loginRepository) {
-		this.loginRepository = loginRepository;
+	public LoginService(ContasRepository contaRepository) {
+		this.contaRepository = contaRepository;
 	}
 
-  public boolean validaLogin(String body, HttpServletRequest request){
+  public boolean valida(String body, HttpServletRequest request){
 
         User newUser = new User(body);
         //newUser.setFromLogin(body);
+        Contas conta = contaRepository.getLogin(newUser.getEmail(), newUser.getPassword());
 
-        if(newUser.getEmail().equals("festamauricio42@gmail.com") && newUser.getPassword().equals("123")){
+        if(conta != null){
   
             HttpSession session=request.getSession();  
              

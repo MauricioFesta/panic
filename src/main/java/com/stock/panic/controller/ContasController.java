@@ -15,36 +15,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
-import com.stock.panic.services.LoginService;
-import com.stock.panic.repository.ContasRepository;
+import com.stock.panic.services.ContasService;
 import com.stock.panic.model.Contas;
-
+import com.stock.panic.repository.ContasRepository;
 
 @RestController
-@RequestMapping(value = "/")
-public class LoginController {
+@RequestMapping(value = "/contas")
+public class ContasController {
 
-	private final ContasRepository contasRepository;
+	private final ContasRepository contaRepository;
 	
-	public LoginController(ContasRepository contasRepository) {
-		this.contasRepository = contasRepository;
-	
+	public ContasController(ContasRepository contaRepository) {
+
+		this.contaRepository = contaRepository;
 	}
 
-	@PostMapping("/login")
-	public String login(@RequestBody String user, HttpServletRequest request) {
+	@PostMapping("/all")
+	public List<Contas> login(@RequestBody String user, HttpServletRequest request) {
 		
-		LoginService login = new LoginService(contasRepository);
+		ContasService conta = new ContasService(contaRepository);
 
-		if(login.valida(user, request)){
+		return conta.getAll();
 
-			return "ok";
-
-		}else{
-			return "erro";
-		}
-
-		
 	}
 
 
