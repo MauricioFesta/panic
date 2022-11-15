@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
-import com.stock.panic.services.ContasService;
+import com.stock.panic.services.ContaService;
 import com.stock.panic.model.Conta;
 import com.stock.panic.repository.ContaRepositoryInterface;
 
@@ -30,9 +30,9 @@ public class ContaController {
 	@PostMapping("/index")
 	public List<Conta> login(@RequestBody String user, HttpServletRequest request) {
 		
-		ContasService conta = new ContasService(contaRepository);
+            ContaService conta = new ContaService(contaRepository);
 
-		return conta.getAll();
+            return conta.getAll();
 
 	}
 

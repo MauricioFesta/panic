@@ -5,11 +5,11 @@ import java.util.List;
 import com.stock.panic.model.Conta;
 import com.stock.panic.repository.ContaRepositoryInterface;
 
-public class ContasService  {
+public class ContaService  {
 
     private final ContaRepositoryInterface contaRepository;
 
-    public ContasService(ContaRepositoryInterface contaRepository) {
+    public ContaService(ContaRepositoryInterface contaRepository) {
         this.contaRepository = contaRepository;
     }
 

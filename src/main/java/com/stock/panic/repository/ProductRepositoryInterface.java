@@ -16,5 +16,6 @@ public interface ProductRepositoryInterface {
     
     
     List<Product> getAllPaged(int page, int limit, ObjectId conta_id);
+    Product create(Product product);
     
 }

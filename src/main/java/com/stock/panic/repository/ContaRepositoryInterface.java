@@ -7,6 +7,6 @@ import com.stock.panic.model.Conta;
 public interface ContaRepositoryInterface {
 
     List<Conta> getAll();
-    Conta getLogin(String email, String senha);
+    Conta getLogin(String email);
 
 }

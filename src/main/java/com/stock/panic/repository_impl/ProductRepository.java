@@ -33,6 +33,13 @@ public class ProductRepository implements ProductRepositoryInterface {
         query.addCriteria(Criteria.where("conta_id").is(conta_id));
         return mongoTemplate.find(query,Product.class);
     }
+    
+    @Override
+    public Product create(Product product){
+                
+       return mongoTemplate.save(product);
+
+    }
 
     
 }

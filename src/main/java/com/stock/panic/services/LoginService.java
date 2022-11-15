@@ -1,5 +1,6 @@
 package com.stock.panic.services;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -21,6 +22,8 @@ import java.util.Calendar;
 import java.util.Date;
 import org.json.JSONObject;
 import com.stock.panic.repository.ContaRepositoryInterface;
+import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
+
 
 
 public class LoginService  {
@@ -35,12 +38,18 @@ public class LoginService  {
 
         JSONObject user = new JSONObject(body);
       
-        Conta newUser = new Conta(user.getString("email"), user.getString("senha"));
+        //Conta newUser = new Conta(user.getString("email"), user.getString("senha"));
+        
+        //String bcryptHashString = BCrypt.withDefaults().hashToString(14, user.getString("senha").toCharArray());
              
-        Conta conta = contaRepository.getLogin(newUser.getEmail(), newUser.getPassword());
+        Conta conta = contaRepository.getLogin(user.getString("email"));
 
         if(conta != null){
+            
+            BCrypt.Result result = BCrypt.verifyer().verify(user.getString("senha").toCharArray(), conta.getPassword());
 
+          if(result.verified){
+              
             HttpSession session=request.getSession();  
                   
             Path pathPub = Paths.get("/home/mauri42/.ssh/public_key.der");
@@ -82,6 +91,11 @@ public class LoginService  {
          
             }
 
+              
+          }
+          
+          return "";
+           
         }else{
 
             return "";

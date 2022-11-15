@@ -18,17 +18,17 @@ public class ContaRepository implements ContaRepositoryInterface {
 
 	@Override
 	public List<Conta> getAll() {
-		return mongoTemplate.findAll(Conta.class);
+            return mongoTemplate.findAll(Conta.class);
 	}
 
 	@Override
-	public Conta getLogin(String email, String password){
+	public Conta getLogin(String email){
 
-		Query query = new Query();
-		query.addCriteria(Criteria.where("email").is(email));
-		query.addCriteria(Criteria.where("senha").is(password));
+            Query query = new Query();
+            query.addCriteria(Criteria.where("email").is(email));
+            //query.addCriteria(Criteria.where("senha").is(password));
 
-		return mongoTemplate.findOne(query, Conta.class);
+            return mongoTemplate.findOne(query, Conta.class);
 	}
 
 	

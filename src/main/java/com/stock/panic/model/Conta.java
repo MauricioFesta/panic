@@ -12,33 +12,33 @@ public class Conta {
 	private String password;
 	
 	public Conta(String email, String password) {
-		super();
-		this.email = email;
-		this.password = password;
+            super();
+            this.email = email;
+            this.password = password;
 	}
 
 	public String getId() {
-		return id;
+            return id;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+            this.id = id;
 	}
 
 	public String getEmail() {
-		return email;
+            return email;
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+            this.email = email;
 	}
 
 	public String getPassword() {
-		return password;
+            return password;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+            this.password = password;
 	}
 
 }

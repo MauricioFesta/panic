@@ -15,7 +15,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +42,19 @@ public class ProductController {
         return productService.getPaged(body, request);
 		
     }
-
+    
+    @PostMapping("/create")
+    public boolean create(@RequestBody String body, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
+	
+        ProductService productService = new ProductService(productRepository);
+        
+        if(productService.create(body, request) != null){
+            
+            return true;    
+        }   		
+        
+        return false;
+    }
+    
     
 }

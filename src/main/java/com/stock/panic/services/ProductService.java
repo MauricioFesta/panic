@@ -45,4 +45,24 @@ public class ProductService {
         
     }
     
+    public Product create(String body, HttpServletRequest request) {
+        
+        JSONObject bodyJson = new JSONObject(body);
+        
+        HttpSession session=request.getSession();
+        
+        String conta_id = session.getAttribute("conta_id").toString();
+        ObjectId newContaId = new ObjectId(conta_id);
+        
+        String descricao = bodyJson.getString("descricao");
+        String cod_barras = bodyJson.getString("codBarras");
+        int qtd = bodyJson.getInt("qtd");
+        int ativo = bodyJson.getInt("ativo");
+        
+        Product product = new Product(cod_barras, descricao,qtd,ativo,newContaId);
+        
+        return poductRepository.create(product);
+        
+    }
+    
 }
