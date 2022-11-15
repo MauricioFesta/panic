@@ -32,8 +32,6 @@ public class PanicApplicationInterceptor implements HandlerInterceptor {
         HttpSession session=request.getSession();  
         
         String bearer = request.getHeader("Authorization").trim().replace("Bearer", "").trim();
-        System.out.println("eeeeeee");
-        System.out.println(bearer);
                
         if(request.getServletPath().equalsIgnoreCase("/login")){
         
@@ -43,7 +41,7 @@ public class PanicApplicationInterceptor implements HandlerInterceptor {
         
         if(session.getAttribute("conta_id") != null){
             
-                 Path pathPub = Paths.get("/home/mauri42/.ssh/public_key.der");
+            Path pathPub = Paths.get("/home/mauri42/.ssh/public_key.der");
             Path pathPriv = Paths.get("/home/mauri42/.ssh/private_key.der");
             
             byte[] bytesPub = Files.readAllBytes(pathPub);
@@ -69,10 +67,11 @@ public class PanicApplicationInterceptor implements HandlerInterceptor {
                         .build();
 
                     verifier.verify(bearer);
-                    System.out.println("Passouuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+                   
                     return true;
+                    
                 } catch (JWTVerificationException exception){
-                    System.out.println("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+                    
                    response.sendError(401);
                    return false;
                 }

@@ -3,11 +3,9 @@ package com.stock.panic.services;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.stock.panic.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import com.stock.panic.repository.ContasRepository;
-import com.stock.panic.model.Contas;
+import com.stock.panic.model.Conta;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,23 +19,25 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Calendar;
 import java.util.Date;
+import org.json.JSONObject;
+import com.stock.panic.repository.ContaRepositoryInterface;
 
 
 public class LoginService  {
 
-  String body = null;
+    private final ContaRepositoryInterface contaRepository;
 
-  private final ContasRepository contaRepository;
+    public LoginService(ContaRepositoryInterface contaRepository) {
+	this.contaRepository = contaRepository;
+    }
+    
+    public String valida(String body, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
 
-	public LoginService(ContasRepository contaRepository) {
-		this.contaRepository = contaRepository;
-	}
-
-  public String valida(String body, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
-
-        User newUser = new User(body);
+        JSONObject user = new JSONObject(body);
+      
+        Conta newUser = new Conta(user.getString("email"), user.getString("senha"));
              
-        Contas conta = contaRepository.getLogin(newUser.getEmail(), newUser.getPassword());
+        Conta conta = contaRepository.getLogin(newUser.getEmail(), newUser.getPassword());
 
         if(conta != null){
 
@@ -79,16 +79,12 @@ public class LoginService  {
             } catch (JWTCreationException exception){
                 
                 return "";
-                
-                // Invalid Signing configuration / Couldn't convert Claims.
+         
             }
 
         }else{
 
             return "";
         }
-
-  }
-
-
+    }
 }

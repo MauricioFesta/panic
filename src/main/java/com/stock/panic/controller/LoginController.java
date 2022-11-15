@@ -6,47 +6,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.stock.panic.services.LoginService;
-import com.stock.panic.repository.ContasRepository;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import org.json.JSONObject;
+import com.stock.panic.repository.ContaRepositoryInterface;
 
+/**
+ *
+ * @author mauri42
+ */
 
 @RestController
 @RequestMapping(value = "/")
 public class LoginController {
 
-	private final ContasRepository contasRepository;
+    private final ContaRepositoryInterface contaRepository;
 	
-	public LoginController(ContasRepository contasRepository) {
-		this.contasRepository = contasRepository;
-	
-	}   
+    public LoginController(ContaRepositoryInterface contasRepository) {
+	this.contaRepository = contasRepository;	
+    }   
 
-	@PostMapping("/login")
-	public String login(@RequestBody String user, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
+    @PostMapping("/login")
+    public String login(@RequestBody String user, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
 	
-		LoginService login = new LoginService(contasRepository);
+        LoginService login = new LoginService(contaRepository);
 
-		String hash = login.valida(user, request);
+        String hash = login.valida(user, request);
                 
-                JSONObject data = new JSONObject();
+        JSONObject data = new JSONObject();
 
-		if(hash != ""){
+        if(hash != ""){
                         
-                    data.put("status", "ok");
-                    data.put("hash", hash);
+            data.put("status", "ok");
+            data.put("hash", hash);
                         
-                    return data.toString();
+            return data.toString();
 
-		}else{
-			return "erro";
-		}
-
-		
-	}
-
-
-
+	}else{
+            return "erro";
+	}		
+    }
 }
