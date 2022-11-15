@@ -38,9 +38,9 @@ public class PanicApplicationInterceptor implements HandlerInterceptor {
           return true;
 
         }
-        
+                
         if(session.getAttribute("conta_id") != null){
-            
+                  
             Path pathPub = Paths.get("/home/mauri42/.ssh/public_key.der");
             Path pathPriv = Paths.get("/home/mauri42/.ssh/private_key.der");
             
@@ -67,11 +67,11 @@ public class PanicApplicationInterceptor implements HandlerInterceptor {
                         .build();
 
                     verifier.verify(bearer);
-                   
+                                        
                     return true;
                     
                 } catch (JWTVerificationException exception){
-                    
+                  
                    response.sendError(401);
                    return false;
                 }

@@ -16,6 +16,7 @@
 	<description>Stock control</description>
 	<properties>
 		<java.version>11</java.version>
+                 <tomcat.version>9.0.69</tomcat.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -81,6 +82,7 @@
 	</dependencies>
 
 	<build>
+             <finalName>root</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -25,7 +25,6 @@ import com.stock.panic.repository.ContaRepositoryInterface;
 import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
 
 
-
 public class LoginService  {
 
     private final ContaRepositoryInterface contaRepository;
@@ -81,8 +80,8 @@ public class LoginService  {
                     .withIssuer("auth0")
                     .sign(algorithm);
                 
-                
                 session.setAttribute("conta_id",conta.getId()); 
+                
                 return token;
                 
             } catch (JWTCreationException exception){
