@@ -29,8 +29,14 @@ public class ProductRepository implements ProductRepositoryInterface {
 
     @Override
     public List<Product> getAllPaged(int page, int limit, ObjectId conta_id) {
+        
+        int skip = (page - 1) * limit;
+        
         Query query = new Query();
         query.addCriteria(Criteria.where("conta_id").is(conta_id));
+        query.skip(skip);
+        query.limit(limit);
+        
         return mongoTemplate.find(query,Product.class);
     }
     
