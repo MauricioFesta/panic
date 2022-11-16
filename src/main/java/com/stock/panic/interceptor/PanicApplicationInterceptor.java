@@ -41,8 +41,8 @@ public class PanicApplicationInterceptor implements HandlerInterceptor {
                 
         if(session.getAttribute("conta_id") != null){
                   
-            Path pathPub = Paths.get("/home/mauri42/.ssh/public_key.der");
-            Path pathPriv = Paths.get("/home/mauri42/.ssh/private_key.der");
+            Path pathPub = Paths.get("/opt/tomcat/public_key.der");
+            Path pathPriv = Paths.get("/opt/tomcat/private_key.der");
             
             byte[] bytesPub = Files.readAllBytes(pathPub);
             byte[] bytesPriv = Files.readAllBytes(pathPriv);

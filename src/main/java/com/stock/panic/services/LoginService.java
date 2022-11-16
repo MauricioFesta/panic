@@ -40,6 +40,7 @@ public class LoginService  {
         //Conta newUser = new Conta(user.getString("email"), user.getString("senha"));
         
         //String bcryptHashString = BCrypt.withDefaults().hashToString(14, user.getString("senha").toCharArray());
+        
              
         Conta conta = contaRepository.getLogin(user.getString("email"));
 
@@ -51,8 +52,8 @@ public class LoginService  {
               
             HttpSession session=request.getSession();  
                   
-            Path pathPub = Paths.get("/home/mauri42/.ssh/public_key.der");
-            Path pathPriv = Paths.get("/home/mauri42/.ssh/private_key.der");
+            Path pathPub = Paths.get("/opt/tomcat/public_key.der");
+            Path pathPriv = Paths.get("/opt/tomcat/private_key.der");
             
             byte[] bytesPub = Files.readAllBytes(pathPub);
             byte[] bytesPriv = Files.readAllBytes(pathPriv);
