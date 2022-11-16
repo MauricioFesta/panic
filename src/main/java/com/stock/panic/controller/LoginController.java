@@ -11,6 +11,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import org.json.JSONObject;
 import com.stock.panic.repository.ContaRepositoryInterface;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 /**
  *
  * @author mauri42
@@ -43,7 +45,8 @@ public class LoginController {
             return data.toString();
 
 	}else{
-            return "erro";
+          
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
 	}		
     }
 }

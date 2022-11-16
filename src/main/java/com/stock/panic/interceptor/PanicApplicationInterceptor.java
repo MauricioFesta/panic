@@ -32,8 +32,8 @@ public class PanicApplicationInterceptor implements HandlerInterceptor {
         HttpSession session=request.getSession();  
         
         String bearer = request.getHeader("Authorization").trim().replace("Bearer", "").trim();
-               
-        if(request.getServletPath().equalsIgnoreCase("/login")){
+              
+        if(request.getServletPath().equalsIgnoreCase("/login") || request.getServletPath().equalsIgnoreCase("/error")){
         
           return true;
 
