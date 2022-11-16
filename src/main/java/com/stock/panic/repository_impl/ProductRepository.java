@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
 
 
 /**
@@ -45,6 +44,17 @@ public class ProductRepository implements ProductRepositoryInterface {
                 
        return mongoTemplate.save(product);
 
+    }
+    
+    @Override
+    public long totalProducts(ObjectId conta_id){
+        
+        Query query = new Query();
+        
+        query.addCriteria(Criteria.where("conta_id").is(conta_id));
+        
+        return mongoTemplate.count(query, Product.class);
+        
     }
 
     

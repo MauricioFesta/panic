@@ -65,4 +65,17 @@ public class ProductService {
         
     }
     
+    public long count(HttpServletRequest request){
+        
+        
+        HttpSession session=request.getSession();
+        String conta_id = session.getAttribute("conta_id").toString();
+        
+        ObjectId newContaId = new ObjectId(conta_id);
+        
+        return poductRepository.totalProducts(newContaId);
+        
+        
+    }
+    
 }
