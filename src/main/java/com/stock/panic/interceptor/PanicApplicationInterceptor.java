@@ -31,13 +31,14 @@ public class PanicApplicationInterceptor implements HandlerInterceptor {
 
         HttpSession session=request.getSession();  
         
-        String bearer = request.getHeader("Authorization").trim().replace("Bearer", "").trim();
-              
+           
         if(request.getServletPath().equalsIgnoreCase("/login") || request.getServletPath().equalsIgnoreCase("/error")){
         
           return true;
 
         }
+        
+        String bearer = request.getHeader("Authorization").trim().replace("Bearer", "").trim();
                 
         if(session.getAttribute("conta_id") != null){
                   
