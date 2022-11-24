@@ -28,12 +28,18 @@ import static org.springframework.data.redis.serializer.RedisSerializationContex
 public class LoginService  {
 
     private final ContaRepositoryInterface contaRepository;
+    private boolean isOk; 
+    private String token;
+    private String contaId;
 
     public LoginService(ContaRepositoryInterface contaRepository) {
 	this.contaRepository = contaRepository;
+        this.isOk = false;
+        this.token = "";
+        this.contaId = "";
     }
     
-    public String valida(String body, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
+    public void valida(String body, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
 
         JSONObject user = new JSONObject(body);
       
@@ -82,23 +88,114 @@ public class LoginService  {
                     .sign(algorithm);
                 
                 session.setAttribute("conta_id",conta.getId()); 
-                
-                return token;
+                this.setIsOk(true);
+                this.setToken(token);
+               
                 
             } catch (JWTCreationException exception){
-                
-                return "";
-         
+                this.setIsOk(false);
+            
             }
 
               
+          }else{
+              
+             this.setIsOk(true);
           }
           
-          return "";
-           
         }else{
-
-            return "";
+            this.setIsOk(false);
         }
+    }
+    
+    public void validaMobile(String body, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
+     
+          JSONObject user = new JSONObject(body);
+               
+        Conta conta = contaRepository.getLogin(user.getString("email"));
+
+        if(conta != null){
+            
+            BCrypt.Result result = BCrypt.verifyer().verify(user.getString("senha").toCharArray(), conta.getPassword());
+
+          if(result.verified){
+              
+            HttpSession session=request.getSession();  
+                  
+            Path pathPub = Paths.get("/opt/tomcat/public_key.der");
+            Path pathPriv = Paths.get("/opt/tomcat/private_key.der");
+            
+            byte[] bytesPub = Files.readAllBytes(pathPub);
+            byte[] bytesPriv = Files.readAllBytes(pathPriv);
+        
+            PKCS8EncodedKeySpec ksPriv =
+                     new PKCS8EncodedKeySpec(bytesPriv);
+            KeyFactory kfPriv = KeyFactory.getInstance("RSA");
+            
+            RSAPrivateKey privKey = (RSAPrivateKey) kfPriv.generatePrivate(ksPriv);
+            
+            
+            X509EncodedKeySpec ksPub = new X509EncodedKeySpec(bytesPub);
+            KeyFactory kfPub = KeyFactory.getInstance("RSA");
+            RSAPublicKey pubKey = (RSAPublicKey) kfPub.generatePublic(ksPub);
+       
+            Date date = new Date();
+            
+            Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR_OF_DAY, 1);
+
+            try {
+                Algorithm algorithm = Algorithm.RSA256(pubKey, privKey);
+                String token = JWT.create().withExpiresAt(calendar.getTime())
+                    .withIssuer("auth0")
+                    .sign(algorithm);
+                
+                session.setAttribute("conta_id",conta.getId()); 
+                this.setIsOk(true);
+                
+               this.setToken(token);
+                
+            } catch (JWTCreationException exception){
+                this.setIsOk(false);
+             
+            }
+
+              
+          }else{
+              this.setIsOk(false);
+          }
+                  
+        }else{
+            this.setIsOk(false);
+        }
+        
+    }
+    
+    private void setIsOk(boolean ok){
+        
+        this.isOk = ok;   
+    }
+    
+    public boolean getIsOk(){
+        
+        return isOk;
+    }
+    
+    public void setToken(String tk) {
+        
+        this.token = tk;   
+    }
+    
+    public String getToken() {
+        return token;
+    }
+    
+    public void setContaId(String id){
+        this.contaId = id;
+    }
+    
+    public String getContaId() {
+        return contaId;
     }
 }

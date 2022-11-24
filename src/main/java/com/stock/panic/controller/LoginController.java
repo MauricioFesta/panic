@@ -33,14 +33,37 @@ public class LoginController {
 	
         LoginService login = new LoginService(contaRepository);
 
-        String hash = login.valida(user, request);
+        login.valida(user, request);
+                
+        JSONObject data = new JSONObject();
+    
+        if(login.getIsOk()){
+                        
+            data.put("status", "ok");
+            data.put("hash", login.getToken());
+                        
+            return data.toString();
+
+	}else{
+          
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
+	}		
+    }
+    
+      @PostMapping("/login-mobile")
+    public String loginMobile(@RequestBody String user, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
+	
+        LoginService login = new LoginService(contaRepository);
+
+        login.valida(user, request);
                 
         JSONObject data = new JSONObject();
 
-        if(hash != ""){
+        if(login.getIsOk()){
                         
             data.put("status", "ok");
-            data.put("hash", hash);
+            data.put("hash", login.getToken());
+            data.put("conta_id", login.getContaId());
                         
             return data.toString();
 
