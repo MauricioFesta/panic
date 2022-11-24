@@ -14,11 +14,13 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -66,5 +68,21 @@ public class ProductController {
         return productService.count(request); 
     }
     
+    @PostMapping("/decrease")
+    public boolean decrease(@RequestBody String body,HttpServletRequest request) {
+        
+        ProductService productService = new ProductService(productRepository);
+      
+        long resp = productService.decrease(body,request); 
+               
+        if(resp == 0){
+            
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED);   
+        }else{
+            
+            return true;
+        }
+            
+    }
     
 }

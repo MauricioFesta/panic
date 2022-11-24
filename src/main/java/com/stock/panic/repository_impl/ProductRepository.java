@@ -4,6 +4,7 @@
  */
 package com.stock.panic.repository_impl;
 
+import com.mongodb.client.result.UpdateResult;
 import com.stock.panic.model.Product;
 import com.stock.panic.repository.ProductRepositoryInterface;
 import java.util.List;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
 
 
 /**
@@ -54,6 +57,20 @@ public class ProductRepository implements ProductRepositoryInterface {
         query.addCriteria(Criteria.where("conta_id").is(conta_id));
         
         return mongoTemplate.count(query, Product.class);
+        
+    }
+    
+    @Override
+    public UpdateResult decreaseProduct(String barcode, ObjectId conta_id) {
+        
+        Query query = new Query();
+            query.addCriteria(Criteria.where("barcode").is(barcode));
+        query.addCriteria(Criteria.where("conta_id").is(conta_id));
+        
+        Update update = new Update();
+        update.inc("qtd", -1);
+        
+       return mongoTemplate.updateFirst(query, update, Product.class);
         
     }
 

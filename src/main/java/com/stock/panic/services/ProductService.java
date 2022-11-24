@@ -4,6 +4,7 @@
  */
 package com.stock.panic.services;
 
+import com.mongodb.client.result.UpdateResult;
 import com.stock.panic.model.Product;
 import com.stock.panic.repository.ProductRepositoryInterface;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.bson.types.ObjectId;
+import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
 
 /**
  *
@@ -55,11 +57,11 @@ public class ProductService {
         ObjectId newContaId = new ObjectId(conta_id);
         
         String descricao = bodyJson.getString("descricao");
-        String cod_barras = bodyJson.getString("codBarras");
+        String barcode = bodyJson.getString("codBarras");
         int qtd = bodyJson.getInt("qtd");
         int ativo = bodyJson.getInt("ativo");
         
-        Product product = new Product(cod_barras, descricao,qtd,ativo,newContaId);
+        Product product = new Product(barcode, descricao,qtd,ativo,newContaId);
         
         return poductRepository.create(product);
         
@@ -76,6 +78,23 @@ public class ProductService {
         return poductRepository.totalProducts(newContaId);
         
         
+    }
+    
+    public long decrease(String body,HttpServletRequest request) {
+        
+        JSONObject bodyJson = new JSONObject(body);
+        
+        String barcode = bodyJson.getString("codBarras");
+         
+        HttpSession session=request.getSession();
+        String conta_id = session.getAttribute("conta_id").toString();
+        
+        ObjectId newContaId = new ObjectId(conta_id);
+        
+        UpdateResult result = poductRepository.decreaseProduct(barcode, newContaId);
+ 
+        
+        return result.getModifiedCount();
     }
     
 }

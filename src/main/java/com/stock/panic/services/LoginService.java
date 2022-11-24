@@ -152,9 +152,10 @@ public class LoginService  {
                     .sign(algorithm);
                 
                 session.setAttribute("conta_id",conta.getId()); 
+              
                 this.setIsOk(true);
-                
-               this.setToken(token);
+                this.setContaId(conta.getId());
+                this.setToken(token);
                 
             } catch (JWTCreationException exception){
                 this.setIsOk(false);

@@ -50,17 +50,17 @@ public class LoginController {
 	}		
     }
     
-      @PostMapping("/login-mobile")
+    @PostMapping("/login-mobile")
     public String loginMobile(@RequestBody String user, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
 	
         LoginService login = new LoginService(contaRepository);
 
-        login.valida(user, request);
+        login.validaMobile(user, request);
                 
         JSONObject data = new JSONObject();
 
         if(login.getIsOk()){
-                        
+
             data.put("status", "ok");
             data.put("hash", login.getToken());
             data.put("conta_id", login.getContaId());

@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Conta {
 
 	@Id
-	private String id;
+	private String _id;
 	private String email;
 	private String password;
 	
@@ -18,11 +18,11 @@ public class Conta {
 	}
 
 	public String getId() {
-            return id;
+            return _id;
 	}
 
 	public void setId(String id) {
-            this.id = id;
+            this._id = id;
 	}
 
 	public String getEmail() {

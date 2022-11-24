@@ -18,14 +18,14 @@ public class Product {
     @Id
     private String id;
     private ObjectId conta_id;
-    private String codigo_barras;
+    private String barcode;
     private String descricao;
     private int qtd;
     private int ativo;
     
-    public Product(String codigo_barras, String descricao, int qtd, int ativo, ObjectId conta_id){
+    public Product(String barcode, String descricao, int qtd, int ativo, ObjectId conta_id){
         super();
-        this.codigo_barras = codigo_barras;
+        this.barcode = barcode;
         this.descricao = descricao;
         this.qtd = qtd;
         this.ativo = ativo;
@@ -40,7 +40,7 @@ public class Product {
     
     public String getCodBarras(){
         
-        return codigo_barras;
+        return barcode;
     }
     
     public String getDescricao(){
@@ -59,9 +59,9 @@ public class Product {
         return conta_id;
     }
     
-    public void setCodBarras(String codigo_barras){
+    public void setCodBarras(String barcode){
         
-        this.codigo_barras = codigo_barras;
+        this.barcode = barcode;
         
     }
     public void setDescricao(String descricao){
