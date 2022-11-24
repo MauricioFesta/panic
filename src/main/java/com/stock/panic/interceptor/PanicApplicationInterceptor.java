@@ -31,16 +31,23 @@ public class PanicApplicationInterceptor implements HandlerInterceptor {
 
         HttpSession session=request.getSession();  
         
+        String requestPath = request.getServletPath();
+        
            
-        if(request.getServletPath().equalsIgnoreCase("/login") || request.getServletPath().equalsIgnoreCase("/error")){
+        if(requestPath.equalsIgnoreCase("/login") || requestPath.equalsIgnoreCase("/error")      
+          || requestPath.equalsIgnoreCase("/login-mobile")){
         
           return true;
 
         }
         
+        String headerContaID = request.getHeader("AuthorizationContaId");
+        
+        System.out.println("Conta id from mobile " + headerContaID);
+        
         String bearer = request.getHeader("Authorization").trim().replace("Bearer", "").trim();
                 
-        if(session.getAttribute("conta_id") != null){
+        if(session.getAttribute("conta_id") != null || headerContaID != null) {
                   
             Path pathPub = Paths.get("/opt/tomcat/public_key.der");
             Path pathPriv = Paths.get("/opt/tomcat/private_key.der");
