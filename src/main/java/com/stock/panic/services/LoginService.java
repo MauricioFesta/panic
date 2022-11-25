@@ -43,10 +43,12 @@ public class LoginService  {
 
         JSONObject user = new JSONObject(body);
       
-        //Conta newUser = new Conta(user.getString("email"), user.getString("senha"));
         
-        //String bcryptHashString = BCrypt.withDefaults().hashToString(14, user.getString("senha").toCharArray());
-        
+        //String bcryptHashString = BCrypt.withDefaults().hashToString(14, "@dicas2022".toCharArray());
+        //System.out.println(bcryptHashString);
+            
+        //String bcryptHashString2 = BCrypt.withDefaults().hashToString(14, "@dicas2023".toCharArray());
+        //System.out.println(bcryptHashString2);
              
         Usuario usuario = contaRepository.getLogin(user.getString("email"));
 
