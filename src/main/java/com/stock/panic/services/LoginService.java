@@ -6,7 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import com.stock.panic.model.Conta;
+import com.stock.panic.model.Usuario;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,18 +21,18 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Calendar;
 import java.util.Date;
 import org.json.JSONObject;
-import com.stock.panic.repository.ContaRepositoryInterface;
 import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
+import com.stock.panic.repository.UsuarioRepositoryInterface;
 
 
 public class LoginService  {
 
-    private final ContaRepositoryInterface contaRepository;
+    private final UsuarioRepositoryInterface contaRepository;
     private boolean isOk; 
     private String token;
     private String contaId;
 
-    public LoginService(ContaRepositoryInterface contaRepository) {
+    public LoginService(UsuarioRepositoryInterface contaRepository) {
 	this.contaRepository = contaRepository;
         this.isOk = false;
         this.token = "";
@@ -48,11 +48,11 @@ public class LoginService  {
         //String bcryptHashString = BCrypt.withDefaults().hashToString(14, user.getString("senha").toCharArray());
         
              
-        Conta conta = contaRepository.getLogin(user.getString("email"));
+        Usuario usuario = contaRepository.getLogin(user.getString("email"));
 
-        if(conta != null){
+        if(usuario != null){
             
-            BCrypt.Result result = BCrypt.verifyer().verify(user.getString("senha").toCharArray(), conta.getPassword());
+            BCrypt.Result result = BCrypt.verifyer().verify(user.getString("senha").toCharArray(), usuario.getPassword());
 
           if(result.verified){
               
@@ -87,7 +87,7 @@ public class LoginService  {
                     .withIssuer("auth0")
                     .sign(algorithm);
                 
-                session.setAttribute("conta_id",conta.getId()); 
+                session.setAttribute("conta_id",usuario.getContaId()); 
                 this.setIsOk(true);
                 this.setToken(token);
                
@@ -112,11 +112,11 @@ public class LoginService  {
      
           JSONObject user = new JSONObject(body);
                
-        Conta conta = contaRepository.getLogin(user.getString("email"));
+        Usuario usuario = contaRepository.getLogin(user.getString("email"));
 
-        if(conta != null){
+        if(usuario != null){
             
-            BCrypt.Result result = BCrypt.verifyer().verify(user.getString("senha").toCharArray(), conta.getPassword());
+            BCrypt.Result result = BCrypt.verifyer().verify(user.getString("senha").toCharArray(), usuario.getPassword());
 
           if(result.verified){
               
@@ -151,10 +151,10 @@ public class LoginService  {
                     .withIssuer("auth0")
                     .sign(algorithm);
                 
-                session.setAttribute("conta_id",conta.getId()); 
+                session.setAttribute("conta_id",usuario.getContaId()); 
               
                 this.setIsOk(true);
-                this.setContaId(conta.getId());
+                this.setContaId(usuario.getContaId());
                 this.setToken(token);
                 
             } catch (JWTCreationException exception){

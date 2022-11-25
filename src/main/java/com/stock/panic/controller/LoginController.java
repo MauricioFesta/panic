@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import org.json.JSONObject;
-import com.stock.panic.repository.ContaRepositoryInterface;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
+import com.stock.panic.repository.UsuarioRepositoryInterface;
 /**
  *
  * @author mauri42
@@ -22,9 +22,9 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping(value = "/")
 public class LoginController {
 
-    private final ContaRepositoryInterface contaRepository;
+    private final UsuarioRepositoryInterface contaRepository;
 	
-    public LoginController(ContaRepositoryInterface contasRepository) {
+    public LoginController(UsuarioRepositoryInterface contasRepository) {
 	this.contaRepository = contasRepository;	
     }   
 

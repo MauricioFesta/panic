@@ -2,18 +2,18 @@ package com.stock.panic.services;
 
 import java.util.List;
 
-import com.stock.panic.model.Conta;
-import com.stock.panic.repository.ContaRepositoryInterface;
+import com.stock.panic.model.Usuario;
+import com.stock.panic.repository.UsuarioRepositoryInterface;
 
 public class ContaService  {
 
-    private final ContaRepositoryInterface contaRepository;
+    private final UsuarioRepositoryInterface contaRepository;
 
-    public ContaService(ContaRepositoryInterface contaRepository) {
+    public ContaService(UsuarioRepositoryInterface contaRepository) {
         this.contaRepository = contaRepository;
     }
 
-    public List<Conta> getAll(){
+    public List<Usuario> getAll(){
 
         return contaRepository.getAll();
     }

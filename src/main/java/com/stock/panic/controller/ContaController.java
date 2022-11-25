@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.stock.panic.services.ContaService;
-import com.stock.panic.model.Conta;
-import com.stock.panic.repository.ContaRepositoryInterface;
+import com.stock.panic.model.Usuario;
+import com.stock.panic.repository.UsuarioRepositoryInterface;
 
 /**
  *
@@ -20,15 +20,15 @@ import com.stock.panic.repository.ContaRepositoryInterface;
 @RequestMapping(value = "/contas")
 public class ContaController {
 
-	private final ContaRepositoryInterface contaRepository;
+	private final UsuarioRepositoryInterface contaRepository;
 	
-	public ContaController(ContaRepositoryInterface contaRepository) {
+	public ContaController(UsuarioRepositoryInterface contaRepository) {
 
 		this.contaRepository = contaRepository;
 	}
 
 	@PostMapping("/index")
-	public List<Conta> login(@RequestBody String user, HttpServletRequest request) {
+	public List<Usuario> login(@RequestBody String user, HttpServletRequest request) {
 		
             ContaService conta = new ContaService(contaRepository);
 

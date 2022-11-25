@@ -3,15 +3,16 @@ package com.stock.panic.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("contas")
-public class Conta {
+@Document("usuarios")
+public class Usuario {
 
 	@Id
 	private String _id;
+        private String conta_id;
 	private String email;
 	private String password;
 	
-	public Conta(String email, String password) {
+	public Usuario(String email, String password) {
             super();
             this.email = email;
             this.password = password;
@@ -20,9 +21,18 @@ public class Conta {
 	public String getId() {
             return _id;
 	}
+        
+        public String getContaId() {
+            return conta_id;
+	}
+
 
 	public void setId(String id) {
             this._id = id;
+	}
+        
+        public void setContaId(String conta_id) {
+            this.conta_id = conta_id;
 	}
 
 	public String getEmail() {
