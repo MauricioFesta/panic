@@ -6,6 +6,7 @@ package com.stock.panic.controller;
 
 
 import com.stock.panic.model.Product;
+import com.stock.panic.repository.LogRepositoryInterface;
 import com.stock.panic.repository.ProductRepositoryInterface;
 import com.stock.panic.services.ProductService;
 import java.io.IOException;
@@ -31,16 +32,18 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping(value = "/products")
 public class ProductController {
     private final ProductRepositoryInterface productRepository;
+    private final LogRepositoryInterface logRepository;
      
-    public ProductController(ProductRepositoryInterface productRepository) {
+    public ProductController(ProductRepositoryInterface productRepository, LogRepositoryInterface logRepository) {
         this.productRepository = productRepository;
+        this.logRepository = logRepository;
 	
     }   
 
     @PostMapping("/index")
     public List<Product> index(@RequestBody String body, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
 	
-         ProductService productService = new ProductService(productRepository);
+         ProductService productService = new ProductService(productRepository,logRepository);
        
         
         return productService.getPaged(body, request);
@@ -50,7 +53,7 @@ public class ProductController {
     @PostMapping("/create")
     public boolean create(@RequestBody String body, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
 	
-        ProductService productService = new ProductService(productRepository);
+        ProductService productService = new ProductService(productRepository,logRepository);
         
         if(productService.create(body, request) != null){
             
@@ -63,7 +66,7 @@ public class ProductController {
     @GetMapping("/count")
     public long count(HttpServletRequest request){
         
-        ProductService productService = new ProductService(productRepository);
+        ProductService productService = new ProductService(productRepository,logRepository);
       
         return productService.count(request); 
     }
@@ -71,7 +74,7 @@ public class ProductController {
     @PostMapping("/decrease")
     public boolean decrease(@RequestBody String body,HttpServletRequest request) {
         
-        ProductService productService = new ProductService(productRepository);
+        ProductService productService = new ProductService(productRepository,logRepository);
       
         long resp = productService.decrease(body,request); 
                

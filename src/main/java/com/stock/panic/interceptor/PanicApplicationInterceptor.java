@@ -42,10 +42,14 @@ public class PanicApplicationInterceptor implements HandlerInterceptor {
         }
         
         String headerContaID = request.getHeader("AuthorizationContaId");
+        String headerUserID = request.getHeader("AuthorizationUserId");
+        
+        System.out.println("UserId: " + headerUserID);
         
         if(headerContaID != null){
             
             session.setAttribute("conta_id", headerContaID);
+            session.setAttribute("user_id", headerUserID);
             
         }
         

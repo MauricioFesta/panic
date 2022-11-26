@@ -5,8 +5,11 @@
 package com.stock.panic.services;
 
 import com.mongodb.client.result.UpdateResult;
+import com.stock.panic.model.Log;
 import com.stock.panic.model.Product;
+import com.stock.panic.repository.LogRepositoryInterface;
 import com.stock.panic.repository.ProductRepositoryInterface;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,11 +24,13 @@ import static org.springframework.data.redis.serializer.RedisSerializationContex
 public class ProductService {
     
     private final ProductRepositoryInterface poductRepository;
+    private final LogRepositoryInterface logRepository;
     
     
-    public ProductService(ProductRepositoryInterface poductRepository){
+    public ProductService(ProductRepositoryInterface poductRepository, LogRepositoryInterface logRepository){
         
         this.poductRepository = poductRepository;
+        this.logRepository = logRepository;
         
     }
     
@@ -88,11 +93,17 @@ public class ProductService {
          
         HttpSession session=request.getSession();
         String conta_id = session.getAttribute("conta_id").toString();
+        String user_id = session.getAttribute("user_id").toString();
         
         ObjectId newContaId = new ObjectId(conta_id);
+        ObjectId newUserId = new ObjectId(user_id);
         
         UpdateResult result = poductRepository.decreaseProduct(barcode, newContaId);
- 
+        Date date = new Date();
+        
+        Log log = new Log(newUserId,date,barcode,newContaId);
+        LogService logService = new LogService(logRepository);
+        logService.create(log);
         
         return result.getModifiedCount();
     }

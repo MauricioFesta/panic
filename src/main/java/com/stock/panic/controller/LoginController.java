@@ -64,6 +64,7 @@ public class LoginController {
             data.put("status", "ok");
             data.put("hash", login.getToken());
             data.put("conta_id", login.getContaId());
+            data.put("user_id", login.getUserId());
                         
             return data.toString();
 

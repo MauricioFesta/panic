@@ -31,6 +31,7 @@ public class LoginService  {
     private boolean isOk; 
     private String token;
     private String contaId;
+    private String userId;
 
     public LoginService(UsuarioRepositoryInterface contaRepository) {
 	this.contaRepository = contaRepository;
@@ -157,6 +158,7 @@ public class LoginService  {
               
                 this.setIsOk(true);
                 this.setContaId(usuario.getContaId());
+                this.setUserId(usuario.getId());
                 this.setToken(token);
                 
             } catch (JWTCreationException exception){
@@ -194,11 +196,22 @@ public class LoginService  {
         return token;
     }
     
-    public void setContaId(String id){
-        this.contaId = id;
+    public void setContaId(String conta_id){
+        this.contaId = conta_id;
+    }
+    
+    public void setUserId(String user_id){
+        
+        this.userId = user_id;
+        
     }
     
     public String getContaId() {
         return contaId;
+    }
+    
+    public String getUserId(){
+        
+        return userId;
     }
 }
