@@ -7,12 +7,14 @@ package com.stock.panic.controller;
 import com.stock.panic.model.Log;
 import com.stock.panic.repository.LogRepositoryInterface;
 import com.stock.panic.services.LogService;
+import com.stock.panic.services.ProductService;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,5 +41,13 @@ public class LogController {
          LogService logService = new LogService(logRepository);
        
         return logService.getPaged(body, request);
+    }
+    
+     @GetMapping("/count")
+    public long count(HttpServletRequest request){
+        
+        LogService logService = new LogService(logRepository);
+      
+        return logService.count(request); 
     }
 }

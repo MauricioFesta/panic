@@ -35,7 +35,7 @@ public class ProductRepository implements ProductRepositoryInterface {
         int skip = (page - 1) * limit;
         
         Query query = new Query();
-        query.addCriteria(Criteria.where("conta_id").is(conta_id));
+        query.addCriteria(Criteria.where("contaId").is(conta_id));
         query.skip(skip);
         query.limit(limit);
         
@@ -54,7 +54,7 @@ public class ProductRepository implements ProductRepositoryInterface {
         
         Query query = new Query();
         
-        query.addCriteria(Criteria.where("conta_id").is(conta_id));
+        query.addCriteria(Criteria.where("contaId").is(conta_id));
         
         return mongoTemplate.count(query, Product.class);
         
@@ -65,7 +65,7 @@ public class ProductRepository implements ProductRepositoryInterface {
         
         Query query = new Query();
             query.addCriteria(Criteria.where("barcode").is(barcode));
-        query.addCriteria(Criteria.where("conta_id").is(conta_id));
+        query.addCriteria(Criteria.where("contaId").is(conta_id));
         
         Update update = new Update();
         update.inc("qtd", -1);

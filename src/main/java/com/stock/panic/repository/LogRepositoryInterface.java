@@ -19,5 +19,6 @@ public interface LogRepositoryInterface {
     List<Log> getAllPaged(int page, int limit, ObjectId conta_id);
     Log create(Log log);
     long totalLogs(ObjectId conta_id);
+    long totalProducts(ObjectId conta_id);
     
 }

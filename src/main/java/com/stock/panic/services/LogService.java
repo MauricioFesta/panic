@@ -45,6 +45,17 @@ public class LogService {
         return logRepository.getAllPaged(page, limit, newContaId);
     }
     
+    public long count(HttpServletRequest request){
+        
+        
+        HttpSession session=request.getSession();
+        String conta_id = session.getAttribute("conta_id").toString();
+        
+        ObjectId newContaId = new ObjectId(conta_id);
+        
+        return logRepository.totalProducts(newContaId);    
+    }
+    
     
     public void create(Log log){
         

@@ -34,7 +34,7 @@ public class LogRepository implements LogRepositoryInterface {
         int skip = (page - 1) * limit;
         
         Query query = new Query();
-        query.addCriteria(Criteria.where("conta_id").is(conta_id));
+        query.addCriteria(Criteria.where("contaId").is(conta_id));
         query.skip(skip);
         query.limit(limit);
         
@@ -53,8 +53,19 @@ public class LogRepository implements LogRepositoryInterface {
         
         Query query = new Query();
         
-        query.addCriteria(Criteria.where("conta_id").is(conta_id));
+        query.addCriteria(Criteria.where("contaId").is(conta_id));
         
         return mongoTemplate.count(query, Log.class);   
+    }
+    
+    @Override
+    public long totalProducts(ObjectId conta_id){
+        
+        Query query = new Query();
+        
+        query.addCriteria(Criteria.where("contaId").is(conta_id));
+        
+        return mongoTemplate.count(query, Log.class);
+        
     }
 }

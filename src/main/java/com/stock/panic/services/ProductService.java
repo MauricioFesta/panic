@@ -9,13 +9,13 @@ import com.stock.panic.model.Log;
 import com.stock.panic.model.Product;
 import com.stock.panic.repository.LogRepositoryInterface;
 import com.stock.panic.repository.ProductRepositoryInterface;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.bson.types.ObjectId;
 import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
+import utils.DateUtil;
 
 /**
  *
@@ -42,7 +42,7 @@ public class ProductService {
         HttpSession session=request.getSession(); 
         
         String conta_id = session.getAttribute("conta_id").toString();
-        
+              
         ObjectId newContaId = new ObjectId(conta_id);
 	
         int page = bodyJson.getInt("page");
@@ -99,9 +99,9 @@ public class ProductService {
         ObjectId newUserId = new ObjectId(user_id);
         
         UpdateResult result = poductRepository.decreaseProduct(barcode, newContaId);
-        Date date = new Date();
-        
-        Log log = new Log(newUserId,date,barcode,newContaId);
+        DateUtil date = new DateUtil();
+     
+        Log log = new Log(newUserId,date.now(),barcode,newContaId);
         LogService logService = new LogService(logRepository);
         logService.create(log);
         

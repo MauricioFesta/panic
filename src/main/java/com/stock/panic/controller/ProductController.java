@@ -45,7 +45,6 @@ public class ProductController {
 	
          ProductService productService = new ProductService(productRepository,logRepository);
        
-        
         return productService.getPaged(body, request);
 		
     }

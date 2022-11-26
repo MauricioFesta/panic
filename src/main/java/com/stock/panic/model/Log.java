@@ -22,28 +22,28 @@ public class Log {
     
     @Id
     public String _id;
-    public ObjectId user_id;
-    public ObjectId conta_id;
-    public Date inserted_at;
+    public ObjectId userId;
+    public ObjectId contaId;
+    public Date insertedAt;
     public String barcode;
     
     
-    public Log(ObjectId user_id, Date inserted_at,String barcode, ObjectId conta_id){
+    public Log(ObjectId userId, Date insertedAt,String barcode, ObjectId contaId){
         
-        this.user_id = user_id;
-        this.inserted_at = inserted_at;
+        this.userId = userId;
+        this.insertedAt = insertedAt;
         this.barcode = barcode;  
-        this.conta_id = conta_id;
+        this.contaId = contaId;
     }
     
     public ObjectId getUserId(){
         
-        return user_id;
+        return userId;
     }
     
     public ObjectId getContaId(){
         
-        return conta_id;
+        return contaId;
         
     }
     
@@ -53,13 +53,13 @@ public class Log {
     
     public void setContaId(ObjectId conta_id){
         
-        this.conta_id = conta_id;
+        this.contaId = conta_id;
     }
     
     
     public Date getInsertedAt(){
         
-        return inserted_at;
+        return insertedAt;
     }
     
     public String getBarcode(){
@@ -69,7 +69,7 @@ public class Log {
     
     public void setUserId(ObjectId user_id){
         
-        this.user_id = user_id;
+        this.userId = user_id;
         
     }
     
