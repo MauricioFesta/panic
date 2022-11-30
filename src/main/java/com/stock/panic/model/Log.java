@@ -26,6 +26,8 @@ public class Log {
     public ObjectId contaId;
     public Date insertedAt;
     public String barcode;
+    public String nome;
+    public String total;
     
     
     public Log(ObjectId userId, Date insertedAt,String barcode, ObjectId contaId){
@@ -67,11 +69,17 @@ public class Log {
         return barcode;
     }
     
+    
     public void setUserId(ObjectId user_id){
         
         this.userId = user_id;
         
     }
     
+    public String getTotal(){
+        
+        return total;
+    }
     
+       
 }

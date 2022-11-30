@@ -5,6 +5,7 @@
 package com.stock.panic.repository;
 
 import com.stock.panic.model.Log;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.bson.types.ObjectId;
 import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
@@ -20,5 +21,7 @@ public interface LogRepositoryInterface {
     Log create(Log log);
     long totalLogs(ObjectId conta_id);
     long totalProducts(ObjectId conta_id);
+    List<Log> filterDate(int page, int limit, ObjectId conta_id, LocalDateTime dateStart, LocalDateTime dateEnd);
+    long filterDateCount(ObjectId conta_id, LocalDateTime dateStart, LocalDateTime dateEnd);
     
 }

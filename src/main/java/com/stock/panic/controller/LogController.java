@@ -43,11 +43,31 @@ public class LogController {
         return logService.getPaged(body, request);
     }
     
-     @GetMapping("/count")
+    @GetMapping("/count")
     public long count(HttpServletRequest request){
         
         LogService logService = new LogService(logRepository);
       
         return logService.count(request); 
     }
+    
+    @PostMapping("/filter-date")
+    public List<Log> filterDate(@RequestBody String body, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
+        
+        LogService logService = new LogService(logRepository);
+        
+        return logService.filterDate(body, request);
+        
+    }
+    
+    @PostMapping("/count-date")
+    public long filterDateCount(@RequestBody String body, HttpServletRequest request) throws IOException, NoSuchAlgorithmException,InvalidKeySpecException {
+        
+        LogService logService = new LogService(logRepository);
+        
+        return logService.filterDateCount(body, request);      
+    }
+    
+    
+    
 }
