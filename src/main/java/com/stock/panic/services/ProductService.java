@@ -108,4 +108,39 @@ public class ProductService {
         return result.getModifiedCount();
     }
     
+    public List<Product> barcodeFilter(String body, HttpServletRequest request){
+        
+        JSONObject bodyJson = new JSONObject(body);
+        String barcode = bodyJson.getString("barcode");
+        
+        int limit = bodyJson.getInt("limit");
+        int page = bodyJson.getInt("page");
+        
+        HttpSession session=request.getSession();
+        String conta_id = session.getAttribute("conta_id").toString();
+        
+        ObjectId newContaId = new ObjectId(conta_id);
+        
+        return poductRepository.filterBarcode(barcode,newContaId, limit, page);
+        
+        
+    }
+    
+    public long barcodeFilterCount(String body, HttpServletRequest request){
+        
+         JSONObject bodyJson = new JSONObject(body);
+        String barcode = bodyJson.getString("barcode");
+        
+        int limit = bodyJson.getInt("limit");
+        int page = bodyJson.getInt("page");
+        
+        HttpSession session=request.getSession();
+        String conta_id = session.getAttribute("conta_id").toString();
+        
+        ObjectId newContaId = new ObjectId(conta_id);
+        
+        return poductRepository.filterBarcodeCount(barcode,newContaId, limit, page);
+        
+    }
+    
 }

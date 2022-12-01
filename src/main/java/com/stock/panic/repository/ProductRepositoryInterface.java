@@ -21,5 +21,7 @@ public interface ProductRepositoryInterface {
     Product create(Product product);
     long totalProducts(ObjectId conta_id);
     UpdateResult decreaseProduct(String barcode, ObjectId conta_id);
+    List<Product> filterBarcode(String barcode, ObjectId conta_id, int limit, int page);
+    long filterBarcodeCount(String barcode, ObjectId conta_id, int limit, int page);
     
 }

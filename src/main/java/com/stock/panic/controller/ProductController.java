@@ -87,4 +87,22 @@ public class ProductController {
             
     }
     
+    @PostMapping("/barcode")
+    public List<Product> barcodeFilter(@RequestBody String body,HttpServletRequest request) {
+        
+        ProductService productService = new ProductService(productRepository,logRepository);
+        
+        return productService.barcodeFilter(body, request);
+        
+    }
+    
+    @PostMapping("/barcode-count")
+    public long barcodeFilterCount(@RequestBody String body,HttpServletRequest request) {
+        
+        ProductService productService = new ProductService(productRepository,logRepository);
+        
+        return productService.barcodeFilterCount(body, request);
+        
+    }
+    
 }
