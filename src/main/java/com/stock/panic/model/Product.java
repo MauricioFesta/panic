@@ -4,6 +4,7 @@
  */
 package com.stock.panic.model;
 
+import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.bson.types.ObjectId;
@@ -22,14 +23,16 @@ public class Product {
     private String descricao;
     private int qtd;
     private int ativo;
+    private Date insertedAt;
     
-    public Product(String barcode, String descricao, int qtd, int ativo, ObjectId contaId){
+    public Product(String barcode, String descricao, int qtd, int ativo, ObjectId contaId, Date insertedAt){
         super();
         this.barcode = barcode;
         this.descricao = descricao;
         this.qtd = qtd;
         this.ativo = ativo;
         this.contaId = contaId;
+        this.insertedAt = insertedAt;
     }
     
     public String getId(){
@@ -79,4 +82,15 @@ public class Product {
     public void setContaId(ObjectId conta_id){
         this.contaId = conta_id;
     }
+    
+    public Date getInsertedAt(){
+        
+        return insertedAt;
+    }
+    
+    public void setInsertedAt(Date insertedAt){
+        
+        this.insertedAt = insertedAt;    
+    }
+    
 }

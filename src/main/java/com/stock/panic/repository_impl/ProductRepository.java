@@ -19,6 +19,7 @@ import org.springframework.data.mongodb.core.aggregation.CountOperation;
 import org.springframework.data.mongodb.core.aggregation.LimitOperation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SkipOperation;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -50,9 +51,24 @@ public class ProductRepository implements ProductRepositoryInterface {
     }
     
     @Override
-    public Product create(Product product){
+    public long create(Product product){
+        
+        Query query = new Query();
+        Update update = new Update();
+        update.set("barcode", product.getCodBarras());
+        update.set("contaId", product.getContaId());
+        update.set("descricao", product.getDescricao());
+        update.set("qtd", product.getQtd());
+        update.set("ativo", product.getAtivo());
+        update.set("insertedAt", product.getInsertedAt());
+        
+        query.addCriteria(Criteria.where("barcode").is(product.getCodBarras()));
+        
+        UpdateResult result = mongoTemplate.upsert(query, update, Product.class);
+        
+        return result.getModifiedCount();
                 
-       return mongoTemplate.save(product);
+      // return mongoTemplate.save(product);
 
     }
     

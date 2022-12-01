@@ -54,7 +54,9 @@ public class ProductController {
 	
         ProductService productService = new ProductService(productRepository,logRepository);
         
-        if(productService.create(body, request) != null){
+        long resp = productService.create(body, request);
+        
+        if(resp == 1 || resp == 0){
             
             return true;    
         }   		

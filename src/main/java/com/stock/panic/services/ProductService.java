@@ -52,7 +52,7 @@ public class ProductService {
         
     }
     
-    public Product create(String body, HttpServletRequest request) {
+    public long create(String body, HttpServletRequest request) {
         
         JSONObject bodyJson = new JSONObject(body);
         
@@ -66,7 +66,9 @@ public class ProductService {
         int qtd = bodyJson.getInt("qtd");
         int ativo = bodyJson.getInt("ativo");
         
-        Product product = new Product(barcode, descricao,qtd,ativo,newContaId);
+        DateUtil date = new DateUtil();
+        
+        Product product = new Product(barcode, descricao,qtd,ativo,newContaId,date.now());
         
         return poductRepository.create(product);
         
