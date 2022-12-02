@@ -4,9 +4,9 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.stock.panic.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import com.stock.panic.model.Usuario;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,19 +21,19 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Calendar;
 import java.util.Date;
 import org.json.JSONObject;
+import com.stock.panic.repository.UserRepositoryInterface;
 import static org.springframework.data.redis.serializer.RedisSerializationContext.java;
-import com.stock.panic.repository.UsuarioRepositoryInterface;
 
 
 public class LoginService  {
 
-    private final UsuarioRepositoryInterface contaRepository;
+    private final UserRepositoryInterface contaRepository;
     private boolean isOk; 
     private String token;
     private String contaId;
     private String userId;
 
-    public LoginService(UsuarioRepositoryInterface contaRepository) {
+    public LoginService(UserRepositoryInterface contaRepository) {
 	this.contaRepository = contaRepository;
         this.isOk = false;
         this.token = "";
@@ -51,7 +51,7 @@ public class LoginService  {
         //String bcryptHashString2 = BCrypt.withDefaults().hashToString(14, "@dicas2023".toCharArray());
         //System.out.println(bcryptHashString2);
              
-        Usuario usuario = contaRepository.getLogin(user.getString("email"));
+        User usuario = contaRepository.getLogin(user.getString("email"));
 
         if(usuario != null){
             
@@ -115,7 +115,7 @@ public class LoginService  {
      
           JSONObject user = new JSONObject(body);
                
-        Usuario usuario = contaRepository.getLogin(user.getString("email"));
+        User usuario = contaRepository.getLogin(user.getString("email"));
 
         if(usuario != null){
             
