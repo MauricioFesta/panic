@@ -1,0 +1,1 @@
+rsync -avh -e "ssh -i /home/mauri42/.ssh/oracle.key" /home/mauri42/Documents/panic/target/ROOT.war -r  ubuntu@129.148.51.187:/tmp
