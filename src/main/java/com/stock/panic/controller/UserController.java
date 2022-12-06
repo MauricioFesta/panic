@@ -50,6 +50,22 @@ public class UserController {
         
     }
     
+    @PostMapping("/edit")
+    public boolean edit(@RequestBody String body, HttpServletRequest request){
+     
+        UserService userService = new UserService(userRepository);
+        
+        return userService.edit(body, request);
+    }
+    
+    @PostMapping("/delete")
+    public boolean delete(@RequestBody String body, HttpServletRequest request){
+        
+        UserService userService = new UserService(userRepository);
+        
+        return userService.delete(body, request);
+    }
+    
    
     
 }

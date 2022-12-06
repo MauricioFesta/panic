@@ -70,6 +70,63 @@ public class UserService {
         return userRepository.create(user);
     }
     
+    public boolean edit(String body,HttpServletRequest request){
+        
+        JSONObject bodyJson = new JSONObject(body);
+        
+        HttpSession session=request.getSession();
+        String contaId = session.getAttribute("conta_id").toString();
+        
+        ObjectId contaID = new ObjectId(contaId);
+           
+        String password = bodyJson.getString("password");
+        String email = bodyJson.getString("email");
+        String id = bodyJson.getString("id");
+        boolean adm = bodyJson.getBoolean("adm");
+        
+        ObjectId Id = new ObjectId(id);
+        
+        String nomeCompleto = bodyJson.getString("nomeCompleto");
+        
+        String bcryptHashString = BCrypt.withDefaults().hashToString(14, password.toCharArray());
+        
+       long result = userRepository.edit(bcryptHashString, email,Id,nomeCompleto,contaID,adm);
+       
+       if(result > 0){
+           
+           return true;
+       }else{
+           
+           return false;
+       }
+        
+    }
+    
+    public boolean delete(String body,HttpServletRequest request){
+        
+        JSONObject bodyJson = new JSONObject(body);
+        
+        HttpSession session=request.getSession();
+        String contaId = session.getAttribute("conta_id").toString();
+        
+        ObjectId contaID = new ObjectId(contaId);
+        
+        String id = bodyJson.getString("id");
+        
+        ObjectId Id = new ObjectId(id);
+        
+        long result =  userRepository.delete(Id, contaID);
+        
+        if(result > 0){
+            return true;
+            
+        }else{
+            
+            return false;
+        }
+        
+    }
+    
     
     
 }
