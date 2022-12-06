@@ -157,7 +157,7 @@ public class LoginService  {
                 session.setAttribute("conta_id",usuario.getContaId()); 
               
                 this.setIsOk(true);
-                this.setContaId(usuario.getContaId());
+                this.setContaId(usuario.getContaId().toString());
                 this.setUserId(usuario.getId());
                 this.setToken(token);
                 

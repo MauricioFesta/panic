@@ -1,5 +1,6 @@
 package com.stock.panic.services;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.stock.panic.model.User;
 import com.stock.panic.repository.UserRepositoryInterface;
 import java.util.List;
@@ -40,6 +41,33 @@ public class UserService {
         ObjectId newContaId = new ObjectId(conta_id);
         
         return userRepository.getPaged(page, limit, newContaId);
+    }
+    
+    public User create(String body,HttpServletRequest request){
+        
+        JSONObject bodyJson = new JSONObject(body);
+        
+        HttpSession session=request.getSession();
+        
+        String contaId = session.getAttribute("conta_id").toString();
+        String email = bodyJson.getString("email");
+        String password = bodyJson.getString("password");
+        String nomeCompleto = bodyJson.getString("nomeCompleto");
+        boolean adm = bodyJson.getBoolean("adm");
+        
+        
+        User user = new User();
+        
+        String bcryptHashString = BCrypt.withDefaults().hashToString(14, password.toCharArray());
+        
+        user.setEmail(email);
+        user.setPassword(bcryptHashString);
+        user.setNome(nomeCompleto);
+        user.setContaId(new ObjectId(contaId));
+        user.setAtivo(1);
+        user.setAdministrador(adm);
+        
+        return userRepository.create(user);
     }
     
     

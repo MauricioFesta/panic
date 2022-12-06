@@ -18,5 +18,6 @@ public interface UserRepositoryInterface {
     
     List<User> getPaged(int page, int limit, ObjectId conta_id);
     User getLogin(String email);
+    User create(User user);
     
 }

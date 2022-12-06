@@ -62,5 +62,13 @@ public class UserRepository implements UserRepositoryInterface {
 
         return mongoTemplate.findOne(query, User.class);
     }
+    
+    @Override
+    public User create(User user) {
+        
+      return  mongoTemplate.save(user);
+                
+        
+    }
 
 }

@@ -20,12 +20,13 @@ public class User {
     
     @Id
     private String _id;
-    private String contaId;
+    private ObjectId contaId;
     private String email;
     private String password;
     private int ativo;
     private Date insertedAt;
     private String nome;
+    private boolean administrador;
     
    // public User(String email, String password,int ativo,Date insertedAt, String contaId) {
         
@@ -41,12 +42,10 @@ public class User {
         return _id;
     }
         
-    public String getContaId() {
+    public ObjectId getContaId() {
          return contaId;
     }
 
-
-    
     public String getEmail(){
         return email;
     }
@@ -69,6 +68,10 @@ public class User {
         return nome;
     }
     
+    public boolean getAdministrador(){
+        return administrador;
+    }
+    
     public void setEmail(String email){
         this.email = email;
     }
@@ -88,6 +91,14 @@ public class User {
     
     public void setNome(String nome){
         this.nome = nome;
+    }
+    
+    public void setContaId(ObjectId contaId){
+        this.contaId = contaId;
+    }
+    
+    public void setAdministrador(boolean adm){
+        this.administrador = adm;
     }
     
 }
