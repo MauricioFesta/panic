@@ -25,7 +25,7 @@ public class User {
     private String password;
     private int ativo;
     private Date insertedAt;
-    private String nome;
+    private String nomeCompleto;
     private boolean administrador;
     
    // public User(String email, String password,int ativo,Date insertedAt, String contaId) {
@@ -65,7 +65,7 @@ public class User {
     }
     
     public String getNome(){
-        return nome;
+        return nomeCompleto;
     }
     
     public boolean getAdministrador(){
@@ -90,7 +90,7 @@ public class User {
     }
     
     public void setNome(String nome){
-        this.nome = nome;
+        this.nomeCompleto = nome;
     }
     
     public void setContaId(ObjectId contaId){

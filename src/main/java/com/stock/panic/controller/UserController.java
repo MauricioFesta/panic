@@ -42,11 +42,18 @@ public class UserController {
     }
     
     @PostMapping("/create")
-    public User create(@RequestBody String body,HttpServletRequest request) {
+    public boolean create(@RequestBody String body,HttpServletRequest request) {
          
        UserService userService = new UserService(userRepository);
         
-       return userService.create(body,request);
+       long resp = userService.create(body,request);
+       
+       if(resp == 1 || resp == 0){
+            
+           return true;    
+       }   		
+        
+        return false;
         
     }
     

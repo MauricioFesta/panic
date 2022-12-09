@@ -18,7 +18,7 @@ public interface UserRepositoryInterface {
     
     List<User> getPaged(int page, int limit, ObjectId conta_id);
     User getLogin(String email);
-    User create(User user);
+    long create(User user);
     long edit(String password,String email,ObjectId id, String nomeCompleto, ObjectId contaId, boolean adm);
     long delete(ObjectId id, ObjectId contaId);
     

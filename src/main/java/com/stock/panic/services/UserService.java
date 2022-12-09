@@ -43,7 +43,7 @@ public class UserService {
         return userRepository.getPaged(page, limit, newContaId);
     }
     
-    public User create(String body,HttpServletRequest request){
+    public long create(String body,HttpServletRequest request){
         
         JSONObject bodyJson = new JSONObject(body);
         
@@ -67,7 +67,7 @@ public class UserService {
         user.setAtivo(1);
         user.setAdministrador(adm);
         
-        return userRepository.create(user);
+        return userRepository.create(user); 
     }
     
     public boolean edit(String body,HttpServletRequest request){

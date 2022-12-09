@@ -65,9 +65,22 @@ public class UserRepository implements UserRepositoryInterface {
     }
     
     @Override
-    public User create(User user) {
+    public long create(User user) {
         
-      return  mongoTemplate.save(user);
+        Query query = new Query();
+        Update update = new Update();
+        update.set("nomeCompleto", user.getNome());
+        update.set("contaId", user.getContaId());
+        update.set("password", user.getPassword());
+        update.set("ativo", user.getAtivo());
+        update.set("administrador", user.getAdministrador());
+        update.set("email", user.getEmail());
+                
+        query.addCriteria(Criteria.where("email").is(user.getEmail()));
+        
+        UpdateResult result = mongoTemplate.upsert(query, update, User.class);
+        
+        return result.getModifiedCount();
                 
         
     }
