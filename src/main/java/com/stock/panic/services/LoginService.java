@@ -115,7 +115,7 @@ public class LoginService  {
      
           JSONObject user = new JSONObject(body);
                
-        User usuario = contaRepository.getLogin(user.getString("email"));
+        User usuario = contaRepository.getLoginMobile(user.getString("email"));
 
         if(usuario != null){
             

@@ -59,8 +59,16 @@ public class UserRepository implements UserRepositoryInterface {
         Query query = new Query();
         query.addCriteria(Criteria.where("email").is(email));
         query.addCriteria(Criteria.where("administrador").is(true));
-            //query.addCriteria(Criteria.where("senha").is(password));
 
+        return mongoTemplate.findOne(query, User.class);
+    }
+    
+    @Override
+    public User getLoginMobile(String email){
+        
+        Query query = new Query();
+        query.addCriteria(Criteria.where("email").is(email));
+     
         return mongoTemplate.findOne(query, User.class);
     }
     
