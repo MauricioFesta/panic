@@ -44,9 +44,9 @@ public class LogRepository implements LogRepositoryInterface {
         MatchOperation matchStage = Aggregation.match(new Criteria("contaId").is(conta_id));
         SkipOperation skipStage = Aggregation.skip(skip);
         LimitOperation limitStage = Aggregation.limit(limit);
-        LookupOperation lookupStage = Aggregation.lookup("usuarios", "userId", "_id", "usuarios");
+        LookupOperation lookupStage = Aggregation.lookup("users", "userId", "_id", "usuarios");
                 
-        ProjectionOperation projectStage = Aggregation.project("usuarios.nome", "barcode", "insertedAt");
+        ProjectionOperation projectStage = Aggregation.project("usuarios.nomeCompleto", "barcode", "insertedAt");
    
         Aggregation aggregation = Aggregation.newAggregation(matchStage, skipStage, limitStage, lookupStage,projectStage);
           
@@ -59,7 +59,7 @@ public class LogRepository implements LogRepositoryInterface {
     @Override
     public Log create(Log log){
                 
-       return mongoTemplate.save(log);
+       return mongoTemplate.insert(log, "logs");
 
     }
     
@@ -95,9 +95,9 @@ public class LogRepository implements LogRepositoryInterface {
         MatchOperation matchDateEndStage = Aggregation.match(new Criteria("insertedAt").lte(dateEnd)); 
         SkipOperation skipStage = Aggregation.skip(skip);
         LimitOperation limitStage = Aggregation.limit(limit);
-        LookupOperation lookupStage = Aggregation.lookup("usuarios", "userId", "_id", "usuarios");
+        LookupOperation lookupStage = Aggregation.lookup("users", "userId", "_id", "usuarios");
                 
-        ProjectionOperation projectStage = Aggregation.project("usuarios.nome", "barcode", "insertedAt");
+        ProjectionOperation projectStage = Aggregation.project("usuarios.nomeCompleto", "barcode", "insertedAt");
         
         Aggregation aggregation = Aggregation.newAggregation(matchStage,matchDateStartStage,matchDateEndStage,skipStage,limitStage,lookupStage,projectStage);
           

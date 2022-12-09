@@ -60,11 +60,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 			<version>3.12.11</version>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
                     <groupId>com.auth0</groupId>

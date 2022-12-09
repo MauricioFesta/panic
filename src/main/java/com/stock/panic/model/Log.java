@@ -26,7 +26,7 @@ public class Log {
     public ObjectId contaId;
     public Date insertedAt;
     public String barcode;
-    public String nome;
+    public String nomeCompleto;
     public String total;
     
     
