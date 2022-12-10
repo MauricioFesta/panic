@@ -74,6 +74,8 @@ public class UserService {
         
         JSONObject bodyJson = new JSONObject(body);
         
+        String bcryptHashString = "";
+        
         HttpSession session=request.getSession();
         String contaId = session.getAttribute("conta_id").toString();
         
@@ -88,7 +90,11 @@ public class UserService {
         
         String nomeCompleto = bodyJson.getString("nomeCompleto");
         
-        String bcryptHashString = BCrypt.withDefaults().hashToString(14, password.toCharArray());
+        if(!password.isBlank()){
+        
+            bcryptHashString = BCrypt.withDefaults().hashToString(14, password.toCharArray());
+        }
+        
         
        long result = userRepository.edit(bcryptHashString, email,Id,nomeCompleto,contaID,adm);
        
